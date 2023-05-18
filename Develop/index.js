@@ -1,52 +1,70 @@
-// TODO: Include packages needed for this application
+const inquirer = require('inquirer');
 const readmeDocs = require('readme-docs');
 
-// TODO: Create an array of questions for user input
-const questions = [];
+// Array of questions for user input
+const questions = [
+  {
+    type: 'input',
+    name: 'title',
+    message: 'What is the title of your project?',
+  },
+  {
+    type: 'input',
+    name: 'description',
+    message: 'Provide a brief description of your project:',
+  },
+  {
+    type: 'input',
+    name: 'installation',
+    message: 'What are the installation instructions?',
+  },
+  {
+    type: 'input',
+    name: 'usage',
+    message: 'How do you use this project?',
+  },
+  {
+    type: 'input',
+    name: 'learning',
+    message: 'What did you learn?',
+  },
+  {
+    type: 'input',
+    name: 'special',
+    message: 'What is the difference because this and the others?',
+  },
+];
 
-// TODO: Create a function to write README file
+// Function to write README file
 function writeToFile(fileName, data) {
-    // Implementation to write data to a file
+  // Implementation to write data to a file
 }
 
-// TODO: Create a function to initialize app
+// Function to initialize app
 function init() {
-    const readline = require('readline');
-    const fs = require('fs');
+  inquirer.prompt(questions).then((answers) => {
+    const { title, description, installation, usage } = answers;
 
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
+    const data = `# ${title}\n\n${description}\n\n## Installation\n\n${installation}\n\n## Usage\n\n${usage}`;
 
-    rl.question('What is the title of your project? ', (title) => {
-        rl.question('Provide a brief description of your project: ', (description) => {
-            rl.question('What are the installation instructions? ', (installation) => {
-                rl.question('How do you use this project? ', (usage) => {
-                    const data = `# ${title}\n\n${description}\n\n## Installation\n\n${installation}\n\n## Usage\n\n${usage}`;
+    writeToFile('README.md', data);
 
-                    writeToFile('README.md', data);
+    // Configuration options for generateDocs function
+    const options = {
+      inputFile: '../README.md', // Replace with the path to your README.md file
+      outputFile: '../output.html', // Replace with the desired output path and file name
+    };
 
-                    rl.close();
-
-                    // Configuration options for generateDocs function
-                    const options = {
-                        inputFile: 'README.md', // Replace with the path to your README.md file
-                        outputFile: 'output.html', // Replace with the desired output path and file name
-                    };
-
-                    // Generate documentation using readme-docs
-                    readmeDocs.generateDocs(options)
-                        .then(() => {
-                            console.log('Documentation generated successfully!');
-                        })
-                        .catch((error) => {
-                            console.error('An error occurred while generating documentation:', error);
-                        });
-                });
-            });
-        });
-    });
+    // Generate documentation using readme-docs
+    readmeDocs
+      .generateDocs(options)
+      .then(() => {
+        console.log('Documentation generated successfully!');
+      })
+      .catch((error) => {
+        console.error('An error occurred while generating documentation:', error);
+      });
+  });
 }
 
 // Function call to initialize app
