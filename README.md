@@ -9,6 +9,14 @@
   Your browser does not support the video tag.
 </video>
 
+[This is the watchable video on Youtube link](https://www.youtube.com/watch?v=v81yeEyXGjQ)
+
+This project is about me having to create a repo / project that can create a readme
+using code, it is simply installing and running the index.js.
+
+All of the code has been from both the downloaded files of requirer and readme-docs
+and by using a premade stuff, we can create this project and make it work!
+
 ## User Story
 
 ```md
